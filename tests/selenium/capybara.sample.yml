@@ -1,0 +1,12 @@
+# Настройки remote webdriver
+settings:
+  browser: :remote
+  desired_capabilities: :chrome
+  url: "http://x.x.x.x:9515"
+app_host: 'http://dev.test20170906.ru'
+
+# Настройки local webdriver
+# settings:
+#   browser: 'chrome'
+#   driver_path: './drivers/chromedriver'
+# app_host: 'http://dev.test20170906.ru'
