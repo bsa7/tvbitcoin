@@ -1,0 +1,6 @@
+module.exports = {
+  api_settings: {
+    host: 'https://blockchain.info',
+    path: '/ru'
+  },
+}
