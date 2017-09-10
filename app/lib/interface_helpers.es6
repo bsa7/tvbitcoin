@@ -1,6 +1,6 @@
 module.exports = {
   // pretty outputs currency exchange rates
-  pretty: (value, symbol) => {
-    return `${value} ${symbol}`
+  pretty: (value = 0, symbol = '') => {
+    return [(value || 0).toFixed(2), symbol].join(' ')
   }
 }

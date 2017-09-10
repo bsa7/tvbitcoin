@@ -1,7 +1,7 @@
 import { browserHistory } from 'react-router'
 import { createStore, applyMiddleware, compose } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
-import promiseMiddleware from '../middlewares/PromiseMiddleware'
+import { promiseMiddleware } from '../middlewares/PromiseMiddleware'
 import { createLogger } from 'redux-logger'
 import combinedReducers from '../reducers'
 import thunk from 'redux-thunk'

@@ -5,12 +5,6 @@ import React from 'react'
 class MdlTable extends React.Component {
   constructor(props) {
     super(props)
-    this.handleRowSelect = this.handleRowSelect.bind(this)
-  }
-
-  handleRowSelect(selected) {
-    const sortedData = this.getSortedData()
-    this.setState({ selected: selected.map(item => sortedData[item].name) })
   }
 
   render() {
@@ -47,8 +41,8 @@ class MdlTable extends React.Component {
 }
 
 MdlTable.PropTypes = {
-  table_data: PropTypes.object,
-  table_modex: PropTypes.arrayOf(PropTypes.object),
+  table_data: PropTypes.arrayOf(PropTypes.object),
+  table_model: PropTypes.arrayOf(PropTypes.object),
 }
 
 module.exports = {

@@ -251,7 +251,7 @@ class Utilities {
     }
 
     // Придётся параметры запроса энкодить в url, так как в хроме например, fetch с параметрами в body падает
-    let api_url = `${this.api_host}${this.api_version}${props.api_path}`
+    let api_url = `${props.api_host}${props.api_path}`
 
     if (props.method === 'post') {
       options.body = search_string
@@ -259,7 +259,7 @@ class Utilities {
       options.method = props.method
       promise = fetch(api_url, options)
     } else {
-      api_url += `?${search_string}`
+      if (search_string && search_string != '') api_url += `?${search_string}`
       result = fetch(api_url, options).then(
         check_status
       ).then(

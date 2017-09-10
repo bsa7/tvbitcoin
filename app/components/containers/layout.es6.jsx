@@ -10,18 +10,22 @@ class Layout extends React.Component {
 
   render() {
     return (
-      <div className='markup__wrapper'>
-        <AppBar />
-        <div className='markup__content'>
-          {
-            this.props.children
-            ?
-            this.props.children
-            :
-            <RootContainer />
-          }
+        <div className='markup__wrapper'>
+          <div className='markup__header'>
+            <AppBar>
+              <h1 className="font-size-30 font-pt-regular">Тестовое задание</h1>
+            </AppBar>
+          </div>
+          <div className='markup__content'>
+            {
+              this.props.children
+              ?
+              this.props.children
+              :
+              <RootContainer />
+            }
+          </div>
         </div>
-      </div>
     )
   }
 }
