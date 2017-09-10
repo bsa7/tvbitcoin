@@ -56,7 +56,6 @@ const renderProps = {
   components: [Layout, matched_route.props.component],
   matchContext: {},
 }
-console.log({ renderProps })
 if (matched_route) {
   renderProps.uri = current_uri
   const context = {

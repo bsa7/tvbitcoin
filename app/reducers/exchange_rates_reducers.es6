@@ -23,7 +23,7 @@ module.exports = {
       result = {
         ...state,
         rows_history,
-        request_time: moment().format('DD.MM.YYYY HH:mm:SS')
+        request_time: moment().format('DD.MM.YYYY HH:mm:ss')
       }
       if (!result.rows) result.rows = {}
       result.rows[stock_exchange_name] = current_exchange_rates

@@ -4,7 +4,7 @@ import { ExchangeRatesActions, SharedActions } from '../../actions'
 import { connect } from 'react-redux'
 import React from 'react'
 import PropTypes from 'prop-types'
-import { utils, restore_form_fields, store_form_fields } from '../../lib/utilities'
+import { utils, restore_form_fields } from '../../lib/utilities'
 import { Button } from 'react-toolbox/lib/button'
 import { MdlTable } from '../presentational/shared'
 import { pretty } from '../../lib/interface_helpers'
@@ -24,7 +24,7 @@ class MainPage extends React.Component {
   componentDidMount() {
     this.get_exchange_rates_interval = setInterval(() => {
       this.props.update_exchange_rates()
-    }, 10000)
+    }, this.props.refresh_data_interval)
   }
 
   componentWillUnmount () {
@@ -32,7 +32,7 @@ class MainPage extends React.Component {
   }
 
   render() {
-    let exchange_rates_table_markup = [
+    let exchange_rates_table_model = [
       {
         formula: ({ row = {} }) => row.key.replace('_', ' / '),
         type: String,
@@ -40,19 +40,20 @@ class MainPage extends React.Component {
       }
     ]
     api_settings.forEach((api_setting) => {
-      const stock_exchange_name =
-      exchange_rates_table_markup.push({
-        formula: ({ row = {} }) => pretty((row[api_setting.type_name] || {}).buy),
-        type: String,
-        class: 'numeric',
-        header: `${api_setting.service_name} - Покупка`,
-      })
-      exchange_rates_table_markup.push({
-        formula: ({ row = {} }) => pretty((row[api_setting.type_name] || {}).sell),
-        type: String,
-        class: 'numeric',
-        header: `${api_setting.service_name} - Продажа`,
-      })
+      if (this.props.active_stock_exchange_names.includes(api_setting.service_name)) {
+        exchange_rates_table_model.push({
+          formula: ({ row = {} }) => pretty((row[api_setting.service_name] || {}).buy),
+          type: String,
+          class: 'numeric',
+          header: `${api_setting.service_name} - Покупка`,
+        })
+        exchange_rates_table_model.push({
+          formula: ({ row = {} }) => pretty((row[api_setting.service_name] || {}).sell),
+          type: String,
+          class: 'numeric',
+          header: `${api_setting.service_name} - Продажа`,
+        })
+      }
     })
 
     return (
@@ -65,13 +66,17 @@ class MainPage extends React.Component {
           <div className='markup__column-start-stretch markup__wrap-padding'>
             <div className='data-table'>
               <MdlTable
-                table_data={prepare_exchange_rates(this.props.exchange_rates)}
-                table_model={exchange_rates_table_markup}
+                multiSelectable={false}
+                selectable={false}
+                tableData={prepare_exchange_rates({
+                  data: this.props.exchange_rates,
+                  active_instrument_names: this.props.active_instrument_names,
+                  active_stock_exchange_names: this.props.active_stock_exchange_names,
+                })}
+                tableModel={exchange_rates_table_model}
               />
             </div>
           </div>
-
-          <Button label="Hello World!" />
         </div>
       </div>
     )
@@ -84,9 +89,21 @@ MainPage.propTypes = {
 
 function mapStateToProps(state, ownProps) {
   const app = state.application || {}
+  const active_stock_exchange_names = restore_form_fields({
+    form_name: 'active_stock_exchange_names',
+  })
+  const active_instrument_names = restore_form_fields({
+    form_name: 'active_instrument_names',
+  })
+  const refresh_data_interval = restore_form_fields({
+    form_name: 'refresh_data_interval',
+  })
   return {
     exchange_rates: (app.exchange_rates || {}).rows || {},
     last_request_time: (app.exchange_rates || {}).request_time,
+    active_stock_exchange_names,
+    active_instrument_names,
+    refresh_data_interval,
   }
 }
 

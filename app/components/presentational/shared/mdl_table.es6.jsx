@@ -1,6 +1,9 @@
 import { Table, TableHead, TableRow, TableCell } from 'react-toolbox/lib/table'
 import PropTypes from 'prop-types'
 import React from 'react'
+import { SharedActions } from '../../../actions'
+import { connect } from 'react-redux'
+import { utils } from '../../../lib/utilities'
 
 class MdlTable extends React.Component {
   constructor(props) {
@@ -9,19 +12,26 @@ class MdlTable extends React.Component {
 
   render() {
     return (
-      <Table multiSelectable onRowSelect={this.handleRowSelect}>
+      <Table
+        multiSelectable={this.props.multiSelectable}
+        selectable={this.props.selectable}
+        onSelect={this.props.onSelect}
+        onRowSelect={this.props.onRowSelect} >
         <TableHead>
           {
-            this.props.table_model.map((column, index) => (
+            this.props.tableModel.map((column, index) => (
               <TableCell key={index}>{column.header}</TableCell>
             ))
           }
         </TableHead>
         {
-          this.props.table_data.map((row, row_index) => (
-            <TableRow key={row_index} >
+          this.props.tableData.map((row, row_index) => (
+            <TableRow
+              key={row_index}
+              selected={(this.props.selectedRows || []).includes(row_index)}
+              >
               {
-                this.props.table_model.map((column, column_index) => (
+                this.props.tableModel.map((column, column_index) => (
                   <TableCell
                     className={column.class}
                     key={column_index + 1}
@@ -41,8 +51,12 @@ class MdlTable extends React.Component {
 }
 
 MdlTable.PropTypes = {
-  table_data: PropTypes.arrayOf(PropTypes.object),
-  table_model: PropTypes.arrayOf(PropTypes.object),
+  multiSelectable: PropTypes.bool,
+  onRowSelect: PropTypes.func,
+  onSelect: PropTypes.func,
+  selectedRows: PropTypes.arrayOf(PropTypes.Number),
+  tableData: PropTypes.arrayOf(PropTypes.object),
+  tableModel: PropTypes.arrayOf(PropTypes.object),
 }
 
 module.exports = {
