@@ -9,7 +9,12 @@ module.exports = {
       break
     }
     case types.CURRENCIES_SUCCESS: {
-      result = {...state, ...action.result}
+      const exchange_rates = Object.keys(action.result).map((key) => {
+        let row = action.result[key]
+        row.key = key
+        return row
+      })
+      result = {...state, rows: exchange_rates}
       break
     }
     case types.CURRENCIES_ERROR: {

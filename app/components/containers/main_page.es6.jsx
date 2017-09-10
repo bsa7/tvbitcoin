@@ -6,6 +6,8 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import { utils, restore_form_fields, store_form_fields } from '../../lib/utilities'
 import { Button } from 'react-toolbox/lib/button'
+import { MdlTable } from '../presentational/shared'
+import { pretty } from '../../lib/interface_helpers'
 
 class MainPage extends React.Component {
   static needs = [
@@ -18,6 +20,29 @@ class MainPage extends React.Component {
   }
 
   render() {
+    const exchange_rates_table_markup = [
+      {
+        formula: ({ row }) => `${row.key}/BTC`,
+        type: String,
+        header: 'Наименование пары'
+      }, {
+        formula: ({ row }) => pretty(row.last, row.symbol),
+        type: String,
+        class: 'numeric',
+        header: 'Текущий курс',
+      }, {
+        formula: ({ row }) => pretty(row.buy, row.symbol),
+        type: String,
+        class: 'numeric',
+        header: 'Покупка',
+      }, {
+        formula: ({ row }) => pretty(row.sell, row.symbol),
+        type: String,
+        class: 'numeric',
+        header: 'Продажа',
+      },
+    ]
+
     return (
       <div className='markup__column-start-center'>
         <div className='m_markup__content-wrapper'>
@@ -26,7 +51,10 @@ class MainPage extends React.Component {
           </div>
 
           <div className='markup__column-start-stretch markup__wrap-padding'>
-            {JSON.stringify(this.props.exchange_rates)}
+            <MdlTable
+              table_data={this.props.exchange_rates}
+              table_model={exchange_rates_table_markup}
+            />
           </div>
 
           <Button label="Hello World!" />
@@ -37,13 +65,13 @@ class MainPage extends React.Component {
 }
 
 MainPage.propTypes = {
-  exchange_rates: PropTypes.object,
+  exchange_rates: PropTypes.arrayOf(PropTypes.object),
 }
 
 function mapStateToProps(state, ownProps) {
   const app = state.application || {}
   return {
-    exchange_rates: app.exchange_rates || {},
+    exchange_rates: (app.exchange_rates || {}).rows || [],
   }
 }
 
