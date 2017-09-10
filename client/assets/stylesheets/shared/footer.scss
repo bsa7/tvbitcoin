@@ -1,0 +1,150 @@
+@import '../_support.scss';
+
+.footer {
+  padding: 10px 0;
+  margin: 20px 0 0 0;
+  background-color: $grey-panels-color;
+
+  &__container{
+    position: relative;
+    /*overflow-x: hidden;*/
+  }
+
+  &__scroll-to-top-button {
+    background-color: #dbdbdb;
+    width: 50px;
+    height: 50px;
+    position: fixed;
+    right: 50px;
+    bottom: 50px;
+    cursor: pointer;
+
+    @media only screen and (max-width: 750px) {
+      right: 10px;
+      bottom: 10px;
+    }
+
+    &--hidden {
+      display: none;
+    }
+  }
+
+  &__content {
+    border-bottom: 1px solid #dbdbdb;
+    /*height: 320px;
+    max-height: 320px;*/
+  }
+
+  &__actions {
+
+    &-logo-text {
+      font-size: 14px;
+      margin-left: 10px;
+    }
+
+    &-logo-box {
+      margin: 0 10px 0 30px;
+    }
+
+    &-logo-img {
+      height: 30px;
+
+      & > img {
+        height: 100%;
+      }
+    }
+  }
+
+  &__logo-text {
+    width: 100px;
+    margin-left: 20px;
+    font-size: 14px;
+  }
+
+  &__menu-link {
+    padding: 5px 0;
+    @include link(black, black, true, true);
+  }
+
+  a {
+    @include link(black, black, true, true);
+  }
+
+  &__title {
+    font-size: 14px;
+    padding: 10px 0 0 0;
+  }
+
+  &__column {
+    padding: 20px 10px;
+    max-width: 300px;
+
+    &--3,
+    &--5 {
+      @media only screen and (max-width: 750px) {
+        display: none;
+      }
+    }
+  }
+
+  &__input-search-box {
+
+    &-input {
+      height: 30px;
+      width: 275px;
+      margin: 0;
+      padding: 0 0 0 10px;
+      border: none;
+      border-bottom-left-radius: 3px;
+      border-top-left-radius: 3px;
+      background-color: white;
+    }
+
+    &-submit {
+      height: 30px;
+      width: 85px;
+      margin: 0;
+      padding: 0;
+      border: none;
+      border-bottom-right-radius: 3px;
+      border-top-right-radius: 3px;
+      background-color: $ui-blue-1-color;
+      color: white;
+      cursor: pointer;
+    }
+  }
+
+  &__social-block {
+    margin-left: 25px;
+  }
+
+  &__subscribe {
+
+    &-text {
+      font-size: 14px;
+      padding: 10px 5px;
+    }
+
+    &-input {
+      height: 30px;
+      width: 170px;
+      margin: 5px;
+      padding: 0 0 0 10px;
+      border: none;
+      border-radius: 3px;
+      background-color: white;
+    }
+
+    &-submit {
+      height: 30px;
+      width: 90px;
+      margin: 5px;
+      padding: 0;
+      border: none;
+      border-radius: 3px;
+      background-color: $ui-blue-1-color;
+      color: white;
+      cursor: pointer;
+    }
+  }
+}

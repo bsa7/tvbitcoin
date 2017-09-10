@@ -1,0 +1,492 @@
+/* этот файл стилей импортируется только в global.scss и участвует в сервер-рендеринге */
+@import './_support.scss';
+
+.breadcrumbs {
+  padding: 15px 0 30px 0;
+  font-size: 14px;
+  font-family: 'PT Sans regular', sans-serif;
+  font-weight: 400;
+  color: $grey-text-2-color;
+
+  & a {
+    @include link($grey-text-2-color, $grey-text-color, true, true);
+  }
+}
+
+.right-sidebar {
+  min-width: 285px;
+  width: 285px;
+  max-width: 285px;
+  flex-basis: 285px;
+  min-height: 400px;
+
+  @media only screen and (max-width: 1170px) {
+    min-height: initial;
+    flex-basis: initial;
+    margin-bottom: 10px;
+    width: 100%;
+    max-width: 100%;
+    padding: 15px;
+  }
+}
+
+.hamburger {
+  margin-top: 18px;
+  margin-left: 20px;
+  margin-bottom: 0;
+  cursor: pointer;
+  position: relative;
+  transition: all 233ms cubic-bezier(0.5, 0, 0, 1);
+
+  li {
+    background: $ui-blue-1-color;
+    width: 40px;
+    height: 6px;
+    margin-bottom: 9px;
+    transform: translate3d(0, 0, 0);
+    transition: all 333ms cubic-bezier(0.5, 0, 0, 1);
+  }
+
+  &:hover li {
+    background: $ui-red-active-color;
+  }
+  .checked &__first {
+    transform: rotate(-135deg) translateY(-21px);
+  }
+  .checked &__second {
+    filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=0);
+    opacity: 0;
+  }
+  .checked &__third {
+    transform: rotate(135deg) translateY(21px);
+  }
+}
+
+.ui {
+  &__fade {
+    position: fixed;
+    height: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(30, 30, 30, 0.8);
+    z-index: 100;
+
+    & > div {
+      z-index: 101;
+    }
+  }
+
+  &__popup {
+    position: fixed;
+    height: 100%;
+    min-height: 100%;
+    max-height: 100%;
+    width: 100%;
+    min-width: 100%;
+    max-width: 100%;
+    left: 0;
+    top: 0;
+    background-color: rgba(30, 30, 30, 0.8);
+    z-index: 100;
+    @include flex(row, center, center);
+
+    & > div {
+      background-color: white;
+      max-height: 80%;
+      overflow-y: auto;
+    }
+
+    &-small {
+      width: 300px;
+      position: fixed;
+      top: 100px;
+      background-color: white;
+      z-index: 101;
+    }
+
+    &-midi {
+      width: 500px;
+      z-index: 101;
+    }
+
+    &-large {
+      width: 800px;
+      z-index: 101;
+      position: fixed;
+      top: 100px;
+      background-color: white;
+      left: 50%;
+      margin-left: -400px;
+      @media only screen and (max-width: 1170px) {
+        width: 700px;
+        margin-left: -350px;
+      }
+      @media only screen and (max-width: 750px) {
+        width: 400px;
+        margin-left: -200px;
+      }
+      @media only screen and (max-width: 480px) {
+        width: 300px;
+        margin-left: -150px;
+      }
+    }
+
+    $svg_path: "/assets/images/interface_elements/svg";
+
+    &--close-button {
+      width: 30px;
+      height: 30px;
+      position: absolute;
+      display: block;
+      background-color: crimson;
+      margin-right: 6px;
+      top: 10px;
+      right: 10px;
+      background-repeat: no-repeat;
+      background-position: center center;
+      -webkit-mask: url(#{$svg_path}/cross-close-red.svg) center / contain no-repeat;
+
+    }
+  }
+
+  &__properties-underline {
+    flex-grow: 10;
+    border-bottom: 1px solid #efefef;
+    min-height: 16px;
+    height: 16px;
+    margin: 0 10px 2px;
+  }
+
+  &__line-through {
+    text-decoration: line-through;
+    color: $ui-red-through-color;
+  }
+
+  &__radio-button {
+    cursor: pointer;
+  }
+
+  &__slider-card {
+    height: 430px;
+    min-height: 430px;
+    max-height: 430px;
+    @media only screen and (max-width: 1170px) {
+      min-height: 380px;
+      max-height: 430px;
+      flex-basis: 33.3%;
+    }
+    @media only screen and (max-width: 750px) {
+      flex-basis: 50%;
+    }
+    @media only screen and (max-width: 480px) {
+      flex-basis: 100%;
+    }
+  }
+
+  &__list-point {
+    list-style-type: disc;
+
+    & > li {
+      display: list-item;
+      list-style-position: inside;
+    }
+  }
+
+  &__grey-panel {
+    background-color: $grey-panels-color;
+  }
+
+  &__spacer-line-vertical {
+    width: 100%;
+    border-bottom: 1px solid $ui-grey-2-color;
+    margin: 10px 0;
+  }
+
+  &__input {
+    height: 38px;
+    background-color: white;
+    outline: none;
+    border-radius: 3px;
+    border: 1px solid $ui-grey-1-color;
+    padding: 5px 5px 5px 10px;
+
+    &-small {
+      width: 100px;
+      @media only screen and (max-width: 1170px) {
+        width: 48%;
+      }
+    }
+
+    &-midi {
+      width: 165px;
+    }
+
+    &-large {
+      width: 360px;
+      @media only screen and (max-width: 480px) {
+        width: 320px;
+      }
+    }
+
+    &-required {
+      background-color: white;
+      background-image: url("/assets/images/interface_elements/icons/required-star-input.png");
+      background-repeat: no-repeat;
+      background-position: top 15px right 10px;
+      padding-right: 15px;
+    }
+
+    &--focus {
+      outline: none;
+      border-color: $ui-blue-1-color;
+    }
+
+    &--danger {
+      outline: none;
+      border-color: $ui-red-danger-color;
+    }
+  }
+
+  &__select {
+    height: 38px;
+    width: 225px;
+    background: white url("/assets/images/interface_elements/icons/icon-arrow-down-select.png") no-repeat right 13px center;
+    border-radius: 3px;
+    border: 1px solid $ui-grey-1-color;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 5px 30px 5px 10px;
+
+    &--full-width {
+      width: 100%;
+    }
+
+    &--placeholder {
+      color: $ui-grey-1-color;
+    }
+
+    &-required {
+      background-color: white;
+      background-image:
+        url("/assets/images/interface_elements/icons/required-star-input.png"),
+        url("/assets/images/interface_elements/icons/icon-arrow-down-select.png");
+      background-repeat: no-repeat, no-repeat;
+      background-position: top 15px right 10px, top 15px right 25px;
+      padding-right: 15px;
+    }
+    &--danger {
+      outline: none;
+      border-color: $ui-red-danger-color;
+    }
+  }
+
+  &__empty-button {
+    color: white;
+    border: 2px solid white;
+    border-radius: 4px;
+    cursor: pointer;
+    padding: 10px 15px;
+    text-decoration: none;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.3);
+      text-decoration: none;
+      color: white;
+    }
+  }
+
+  &__full-button {
+    height: 38px;
+    color: white;
+    background-color: $ui-blue-1-color;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 10px 15px;
+    border: none;
+    text-decoration: none;
+    outline: none;
+    display: block;
+    width: max-content;
+    text-align: center;
+
+    &-moldy{
+      background-color: $ui-moldy-1-color;
+    }
+
+    &:hover {
+      background-color: $ui-red-active-color;
+      text-decoration: none;
+      color: white;
+    }
+
+    &:disabled {
+      background-color: $ui-grey-1-color;
+      cursor: not-allowed;
+
+      &:hover {
+        background-color: $ui-grey-1-color;
+        text-decoration: none;
+        cursor: not-allowed;
+        color: white;
+      }
+    }
+  }
+
+  &__moldy-button {
+    height: 38px;
+    color: white;
+    background-color: $ui-moldy-1-color;
+    border-radius: 3px;
+    cursor: pointer;
+    padding: 10px 15px;
+    border: none;
+    text-decoration: none;
+
+    &:hover {
+      background-color: $ui-moldy-2-color;
+      text-decoration: none;
+      color: white;
+    }
+  }
+
+  &__promotion {
+    /*height: 605px;
+    max-height: 605px;*/
+
+    &-constructor {
+
+      & > div {
+        height: 100%;
+      }
+
+      &-white-text {
+        color: white;
+      }
+
+      &-black-text {
+        color: black;
+      }
+
+      &-small-button {
+        width: 200px;
+        height: 40px;
+      }
+
+      &-free-button {
+        height: 40px;
+      }
+    }
+
+    &-white-card {
+      flex-basis: 33%;
+      padding: 30px 15px 0 15px;
+
+      @media only screen and (max-width: 1170px) {
+        flex-basis: 50%;
+        margin-bottom: 31px;
+      }
+      @media only screen and (max-width: 750px) {
+        flex-basis: 100%;
+      }
+
+      & > div {
+        border: 1px solid $grey-panels-color;
+        background-color: white;
+        /*min-height: 575px;
+        height: 575px;
+        max-height: 575px;*/
+        width: 100%;
+      }
+    }
+
+    &-realty-object-card {
+      flex-basis: 33.3%;
+      padding: 30px 15px 0 15px;
+      @media only screen and (max-width: 1170px) {
+        flex-basis: 50%;
+        margin-bottom: 31px;
+      }
+      @media only screen and (max-width: 750px) {
+        flex-basis: 100%;
+      }
+
+
+      & > div {
+        border: 1px solid $grey-panels-color;
+        background-color: $ui-blue-3-color;
+        min-height: 575px;
+        height: 575px;
+        max-height: 575px;
+        width: 100%;
+
+        @media only screen and (max-width: 750px) {
+          min-height: 636px;
+          height: auto;
+          max-height: 750px;
+        }
+        @media only screen and (max-width: 480px) {
+          min-height: 500px;
+          height: auto;
+          max-height: 750px;
+        }
+      }
+
+    }
+
+    &-right-sidebar {
+
+      & > div {
+        background-color: $grey-panels-color;
+        width: 100%;
+      }
+
+    }
+  }
+
+}
+
+.Select-control {
+  height: 38px !important;
+  border: 1px solid #b0bec5 !important;
+  &--danger {
+    .Select-control {
+      outline: none;
+      border-color: $ui-red-danger-color;
+    }
+  }
+  .Select-menu-outer {
+    border: 1px solid #b0bec5 !important;
+  }
+}
+
+.Select.ui__input-required {
+  background-color: white;
+  background-image: none;
+  background-repeat: no-repeat;
+  background-position: top 15px right 10px;
+  padding-right: 0px;
+
+  .Select-control {
+    background-color: white;
+    background-image: url("/assets/images/interface_elements/icons/required-star-input.png");
+    background-repeat: no-repeat;
+    background-position: top 15px right 10px;
+    padding-right: 15px;
+  }
+}
+
+.Select--multi {
+  .Select-value {
+    padding-top: 4px !important;
+    height: 32px !important;
+    margin-left: 2px !important;
+    margin-top: 2px !important;
+  }
+}

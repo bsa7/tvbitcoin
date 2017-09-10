@@ -1,0 +1,80 @@
+/*этот файл - разделяемый для многих файлов стилей, в том числе он включается в global.scss и участвует в сервер-рендеринге*/
+$header-text-color: #303030;
+$header-link-color: #a0a0a0;
+
+$grey-text-color: #303030;
+$grey-text-2-color: #909090;
+$grey-panels-color: #eceff1;
+
+$ui-grey-1-color: #b0bec5;
+$ui-grey-2-color: #dbdbdb;
+
+$ui-blue-1-color: #005bab;
+$ui-blue-2-color: #106bbb;
+$ui-blue-3-color: #1d3557;
+$ui-blue-4-color: #409beb;
+
+$ui-moldy-1-color: #607d8b;
+$ui-moldy-2-color: #1f475a;
+
+$ui-tabs-1-color: #cfd9db;
+
+$ui-red-active-color: #f24134;
+$ui-red-danger-color: #f24134;
+$ui-red-through-color: #f44336;
+
+$font-sizes: (
+  14:(size:14, line:17),
+  16:(size:16, line:18)
+);
+
+@mixin boxShadow() {
+  box-shadow: 0px 4px 8px rgba(172, 172, 172, 0.5);
+}
+
+@mixin link($color, $hover_color, $decoration, $hover_decor) {
+  cursor: pointer;
+  color: $color;
+  display: inline-block;
+  @if $decoration {
+    text-decoration: underline;
+  } @else {
+    text-decoration: none;
+  }
+
+  &:hover {
+    color: $hover_color;
+    @if $hover_decor {
+      text-decoration: underline;
+    } @else {
+      text-decoration: none;
+    }
+  }
+}
+
+@mixin flex($direction, $justify-content, $align-items, $flex-wrap:nowrap, $flex-grow:0) {
+  display: flex;
+  flex-direction: $direction;
+  justify-content: $justify-content;
+  align-items: $align-items;
+  flex-wrap: $flex-wrap;
+  flex-grow: $flex-grow;
+}
+
+@mixin font($font-type:regular) {
+  @if $font-type == bold {
+    font-family: 'PT Sans bold', sans-serif;
+    font-weight: 400;
+  } @else {
+    font-family: 'PT Sans regular', sans-serif;
+    font-weight: 400;
+  }
+}
+
+@mixin selectless($font-type:regular) {
+  -ms-user-select: none; // — эксплорер;
+  -moz-user-select: none; // — файрфокс;
+  -khtml-user-select: none; // — конкверор;
+  -webkit-user-select: none; // — вебкит браузеры (Хром, Сафари);
+  user-select: none; // — для браузеров последних версий.
+}
