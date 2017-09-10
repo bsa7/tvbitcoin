@@ -5,6 +5,7 @@ import { connect } from 'react-redux'
 import React from 'react'
 import PropTypes from 'prop-types'
 import { utils, restore_form_fields, store_form_fields } from '../../lib/utilities'
+import { Button } from 'react-toolbox/lib/button'
 
 class MainPage extends React.Component {
   static needs = [
@@ -27,6 +28,8 @@ class MainPage extends React.Component {
           <div className='markup__column-start-stretch markup__wrap-padding'>
             {JSON.stringify(this.props.exchange_rates)}
           </div>
+
+          <Button label="Hello World!" />
         </div>
       </div>
     )

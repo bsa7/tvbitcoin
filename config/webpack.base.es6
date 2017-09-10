@@ -19,14 +19,8 @@ module.exports = {
   devtool: 'eval',
 
   entry: [
-//    'webpack-hot-middleware/client',
     path.join(__dirname, '../client/index.es6.jsx')
   ],
-
-//  entry: [
-//    'webpack-hot-middleware/client', // for hot reload
-//    './client/index', // entry point for the client app
-//  ],
 
   //
   output: {

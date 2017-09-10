@@ -43,7 +43,15 @@ const dev_config = merge([config, {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader',
+          {
+            loader: "css-loader",
+            options: {
+              modules: true, // default is false
+              sourceMap: true,
+              importLoaders: 1,
+              localIdentName: "[name]--[local]--[hash:base64:8]"
+            }
+          },
           'postcss-loader',
         ]
       },
