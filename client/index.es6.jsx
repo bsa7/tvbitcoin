@@ -33,7 +33,7 @@ if (history) {
     const matched_route = find_route({ routes, current_uri: uri })
     const params = {
       uri_info: {
-        target: route.props.location,
+        target: matched_route.props.location,
         current: uri,
       }
     }
@@ -56,7 +56,7 @@ const renderProps = {
   components: [Layout, matched_route.props.component],
   matchContext: {},
 }
-
+console.log({ renderProps })
 if (matched_route) {
   renderProps.uri = current_uri
   const context = {

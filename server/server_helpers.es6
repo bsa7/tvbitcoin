@@ -38,6 +38,7 @@ const pageTemplate = () => {
         #{head}
         <link rel="shortcut icon" type="image/ico" href="/assets/images/favicon.ico" />
         <link rel="stylesheet" href="/assets/stylesheets/index.css" />
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
       </head>
       <body>
         <div id='root' class='markup__container'>#{html}</div>

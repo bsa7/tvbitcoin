@@ -15,9 +15,23 @@ let path_settings = {
     location: '/',
     domain: domains.MAIN,
   },
+  SETTINGS: {
+    component_name: 'SettingsPage',
+    type: [PAGE_TYPES.CATALOG],
+    location: '/settings',
+    domain: domains.MAIN,
+  },
+}
+
+/**
+* Ссылки в коде всегда формируем через это. Тогда всегда сможем усложнить роутинг, добавляя параметры и т.п.
+*/
+const seo_link = (path_setting) => {
+  return path_setting.location
 }
 
 module.exports = {
   path_settings,
+  seo_link,
   slugs_regexps,
 }

@@ -16,10 +16,10 @@ const routes = Object.keys(path_settings).map((key, index) => {
     location: path_setting.location,
     hostname: path_setting.domain,
   }
-  const component_name = Containers[path_settings[key].component_name]
+  const component = Containers[path_settings[key].component_name]
   return (
     <Route
-      component={component_name}
+      component={component}
       exact
       key={index}
       location={route_location}
@@ -47,15 +47,15 @@ class Routes extends React.Component {
   }
 
   replace_current_route(props) {
-    const uri = this.props.uri_info.current
+    const uri = props.uri_info.current
     if (uri) {
-      let current_route = find_route({ routes, current_uri: uri })
-      if (!current_route) {
-        current_route = (
+      let matched_route = find_route({ routes, current_uri: uri })
+      if (!matched_route) {
+        matched_route = (
           <Route component={Containers.NotFound} />
         )
       }
-      this.current_route = current_route
+      this.current_route = matched_route
     }
   }
 
@@ -82,9 +82,9 @@ Routes.propTypes = {
 }
 
 function mapStateToProps(state, ownProps) {
-  const environment_data = (state.application || {}).environment_data || {}
+  const environment_info = (state.application || {}).environment_info || {}
   return {
-    uri_info: environment_data.uri_info || {},
+    uri_info: environment_info.uri_info || {},
   }
 }
 

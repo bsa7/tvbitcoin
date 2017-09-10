@@ -63,6 +63,14 @@ p {
   width: 100% !important;
 }
 
+.white-color__icon > button[class*="theme--icon--"] > .material-icons {
+  color: white;
+}
+
+.black-color {
+  color: black !important;
+}
+
 @font-face {
   font-family: 'PT Sans bold';
   src: url('../fonts/pt-sans-bold.ttf') format('truetype')
