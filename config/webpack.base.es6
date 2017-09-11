@@ -24,9 +24,9 @@ module.exports = {
 
   //
   output: {
-    path: path.join(app_path, 'config/build'),
+    path: path.join(__dirname, '../public'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '/'
   },
 
   //

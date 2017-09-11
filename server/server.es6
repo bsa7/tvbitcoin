@@ -105,7 +105,6 @@ app.get("*", (incomingRequest, serverResponse, next) => {
       serverResponse.end(err)
     })
   } else {
-    console.log('render_not_found_page', 'renderProps: ', renderProps, 'current_uri: ', current_uri)
     return render_not_found_page({ renderProps, serverResponse, store, uri: current_uri })
   }
 })
