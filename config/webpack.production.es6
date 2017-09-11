@@ -12,9 +12,9 @@ const production_config = merge([config, {
 //    path.join(__dirname, '../client/index.es6.jsx')
 //  ],
   output: {
-    path: path.join(__dirname, 'static'),
+    path: path.join(__dirname, '../public'),
     filename: 'bundle.js',
-    publicPath: '/static/'
+    publicPath: '../public/'
   },
   module: {
     rules: [
@@ -47,7 +47,16 @@ const production_config = merge([config, {
         test: /\.css$/,
         use: [
           'style-loader',
-          'css-loader',
+          {
+            loader: "css-loader",
+            options: {
+              modules: true, // default is false
+              sourceMap: true,
+              importLoaders: 1,
+              localIdentName: "[name]--[local]--[hash:base64:8]"
+            }
+          },
+          "postcss-loader"
         ]
       },
     ]

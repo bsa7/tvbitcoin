@@ -43,7 +43,7 @@ const pageTemplate = () => {
       <body>
         <div id='root' class='markup__container'>#{html}</div>
         <script>window.application_state = '#{initialState}'</script>
-        <script src="/static/bundle.js"></script>
+        <script src="/bundle.js"></script>
       </body>
     </html>
   `

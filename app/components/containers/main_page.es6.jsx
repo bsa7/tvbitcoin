@@ -91,13 +91,13 @@ function mapStateToProps(state, ownProps) {
   const app = state.application || {}
   const active_stock_exchange_names = restore_form_fields({
     form_name: 'active_stock_exchange_names',
-  })
+  }) || []
   const active_instrument_names = restore_form_fields({
     form_name: 'active_instrument_names',
-  })
+  }) || []
   const refresh_data_interval = restore_form_fields({
     form_name: 'refresh_data_interval',
-  })
+  }) || 10000
   return {
     exchange_rates: (app.exchange_rates || {}).rows || {},
     last_request_time: (app.exchange_rates || {}).request_time,

@@ -9,7 +9,7 @@ module.exports = {
   // Доступ к api
   host_settings: {
     app_host: '0.0.0.0',
-    app_port: 3000
+    app_port: process.env.PORT || 3003,
   },
   // Информация о режиме работы (development, staging, production)
   environment: {

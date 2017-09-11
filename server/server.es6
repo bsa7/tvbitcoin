@@ -45,6 +45,14 @@ app.use(webpackHotMiddleware(compiler))
 
 const finalCreateStore = applyMiddleware(promiseMiddleware, thunk)(createStore)
 
+// app.use(express.static(__dirname + '/static'))
+// app.get('/public/bundle.js', () => {
+//   const bundle_js_file_name = path.resolve(__dirname, '../public/bundle.js')
+//   console.log({ bundle_js_file_name })
+//   serverResponse.sendFile(bundle_js_file_name)
+// })
+app.use(express.static('public'))
+
 // рендеринг на сервере
 // incomingRequest - IncomingMessage. Запрос полученный от клиента;
 // serverResponse - ServerResponse. Ответ сервера, сессия. Содержит соединение и т.п.
@@ -97,6 +105,7 @@ app.get("*", (incomingRequest, serverResponse, next) => {
       serverResponse.end(err)
     })
   } else {
+    console.log('render_not_found_page', 'renderProps: ', renderProps, 'current_uri: ', current_uri)
     return render_not_found_page({ renderProps, serverResponse, store, uri: current_uri })
   }
 })

@@ -18,9 +18,5 @@ build/Release
 build
 dist
 
-#secret config files
-config/host_settings.es6
-config/api_settings.es6
-config/social_settings.es6
 config/static/
 npm-debug.log
