@@ -16,9 +16,6 @@ module.exports = {
             key: `BTC${key.toUpperCase()}`,
             sell: server_response[key].sell
           }
-          let row = action.result[key]
-          row.key = key
-          return row
         })
       },
       type_name: 'BLOCKCHAIN_INFO',
@@ -35,12 +32,25 @@ module.exports = {
             key: key.replace('_', ''),
             sell: parseFloat(server_response[key].sell_price),
           }
-          let row = action.result[key]
-          row.key = key
-          return row
         })
       },
       type_name: 'EXMO_ME',
+    },
+    {
+      // Биржа bitflip.cc
+      api_path: '/method/market.getRates',
+      host: 'https://api.bitflip.cc',
+      service_name: 'bitflip.cc',
+      serializer: (server_response) => {
+        return server_response.filter((x) => x)[0].map((pair_hash) => {
+          return {
+            buy: parseFloat(pair_hash.buy),
+            key: pair_hash.pair.replace(':', ''),
+            sell: parseFloat(pair_hash.sell),
+          }
+        })
+      },
+      type_name: 'BITFLIP_CC',
     },
 //    {
 //      // Биржа bittrex.com - не поддерживает CORS
