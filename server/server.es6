@@ -22,6 +22,7 @@ import {
 } from './server_helpers'
 import { default_protocol, domains } from '../config/host_settings'
 import createHistory from 'history/createMemoryHistory'
+
 const history = createHistory()
 const app = express()
 app.use('/assets', express.static(path.join(__dirname, '../client/assets')))

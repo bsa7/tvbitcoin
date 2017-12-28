@@ -79,16 +79,18 @@ module.exports = {
 //      // Биржа coinmarketcap.com - не поддерживает CORS
 //      api_path: '/v1/ticker',
 //      host: 'https://api.coinmarketcap.com',
+//      mode: 'cors',
 //      service_name: 'coinmarketcap.com',
 //      serializer: (server_response) => {
-//        return server_response.map((item) => {
-//          return {
-//            key: `${item.symbol}_BTC`,
-//            buy: item.price_btc,
-//            sell: item.price_btc,
-//          }
-//        })
+//       return server_response.map((item) => {
+//         return {
+//           key: `${item.symbol}BTC`,
+//           buy: item.price_btc,
+//           sell: item.price_btc,
+//         }
+//       })
 //      },
+//      type_name: 'COIN_MARKET_CAP',
 //    },
 //    {
 //      // Биржа livecoin.net - не поддерживает CORS
