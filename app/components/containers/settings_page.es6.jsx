@@ -6,6 +6,7 @@ import { ExchangeRatesActions, SharedActions } from '../../actions'
 import { connect } from 'react-redux'
 import { utils, restore_form_fields, store_form_fields } from '../../lib/utilities'
 import { api_settings } from '../../../config/api_settings'
+import default_settings from '../../../config/default_settings'
 import Slider from 'react-toolbox/lib/slider'
 
 class SettingsPage extends React.Component {
@@ -147,7 +148,7 @@ SettingsPage.propTypes = {
   refresh_data_interval: PropTypes.number,
 }
 
-function mapStateToProps(state, ownProps) {
+const mapStateToProps = (state, ownProps) => {
   const shared_props = (state.application || {}).shared_props || {}
   const exchange_rates = (state.application || {}).exchange_rates || {}
   const local_stored_active_stock_exchange_names = restore_form_fields({
@@ -160,8 +161,12 @@ function mapStateToProps(state, ownProps) {
     form_name: 'refresh_data_interval',
   })
   return {
-    active_stock_exchange_names: shared_props.active_stock_exchange_names || local_stored_active_stock_exchange_names || [],
-    active_instrument_names: shared_props.active_instrument_names || local_stored_active_instrument_names || [],
+    active_stock_exchange_names: shared_props.active_stock_exchange_names ||
+                                 local_stored_active_stock_exchange_names ||
+                                 default_settings.active_stock_exchange_names,
+    active_instrument_names: shared_props.active_instrument_names ||
+                             local_stored_active_instrument_names ||
+                             default_settings.active_instrument_names,
     exchange_rates: exchange_rates.rows || {},
     refresh_data_interval: shared_props.refresh_data_interval || local_stored_refresh_data_interval || 10000,
   }

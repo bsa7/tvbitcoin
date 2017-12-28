@@ -9,6 +9,7 @@ import { Button } from 'react-toolbox/lib/button'
 import { MdlTable } from '../presentational/shared'
 import { pretty } from '../../lib/interface_helpers'
 import { api_settings } from '../../../config/api_settings'
+import default_settings from '../../../config/default_settings'
 import { prepare_exchange_rates } from '../../lib/exchange_rates_helper'
 
 class MainPage extends React.Component {
@@ -87,14 +88,14 @@ MainPage.propTypes = {
   exchange_rates: PropTypes.object,
 }
 
-function mapStateToProps(state, ownProps) {
+const mapStateToProps = (state, ownProps) => {
   const app = state.application || {}
   const active_stock_exchange_names = restore_form_fields({
     form_name: 'active_stock_exchange_names',
-  }) || []
+  }) || default_settings.active_stock_exchange_names
   const active_instrument_names = restore_form_fields({
     form_name: 'active_instrument_names',
-  }) || []
+  }) || default_settings.active_instrument_names
   const refresh_data_interval = restore_form_fields({
     form_name: 'refresh_data_interval',
   }) || 10000
