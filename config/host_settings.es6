@@ -4,7 +4,7 @@ module.exports = {
   default_protocol: 'http://',
   // Домены сайта
   domains: {
-    MAIN: 'test20170906.xn--h1amiy.xn--p1ai',
+    MAIN: 'xn--90abtajtf1ad.xn--p1ai',
   },
   // Доступ к api
   host_settings: {

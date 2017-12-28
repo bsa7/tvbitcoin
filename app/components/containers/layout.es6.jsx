@@ -19,7 +19,7 @@ class Layout extends React.Component {
           <AppBar>
             <div className='markup__row-between-center full-width'>
               <div className='markup__row-start-center'>
-                <h1 className='font-size-30 font-pt-regular'>Тестовое задание</h1>
+                <h1 className='font-size-30 font-pt-regular'>Монитор бирж криптовалют</h1>
               </div>
               <div className='markup__row-end-center'>
                 <IconMenu className='white-color__icon' icon='more_vert' position='topRight' menuRipple>

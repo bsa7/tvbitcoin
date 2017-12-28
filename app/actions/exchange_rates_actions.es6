@@ -15,6 +15,7 @@ module.exports = {
         promise: utils.fetch_json({
           api_host: api_setting.host,
           api_path: api_setting.api_path,
+          mode: api_setting.mode,
         })
       }
     })

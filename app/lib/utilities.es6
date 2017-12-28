@@ -4,6 +4,7 @@ require('babel-polyfill')
 require('es6-promise').polyfill()
 require('isomorphic-fetch')
 import { api_settings } from '../../config/api_settings.es6'
+import host_settings from '../../config/host_settings.es6'
 const store = require('web-storage')().localStorage
 
 // Приватные методы модуля утилит:
