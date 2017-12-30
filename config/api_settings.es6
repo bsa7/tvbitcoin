@@ -10,13 +10,22 @@ module.exports = {
       // sell: Числовое значение - текущий курс продажи биржей инструмента, например 4700.00 (USD за 1 BTC)
       // buy: Числовое значение - текущи курс покупки биржей инструмента, например 4700.00 (USD за 1 BTC)
       serializer: (server_response) => {
-        return Object.keys(server_response).map((key) => {
-          return {
+        const result = []
+        Object.keys(server_response).forEach((key) => {
+          // Прямая пара, например BTC_USD
+          result.push({
             buy: server_response[key].buy,
             key: `BTC${key.toUpperCase()}`,
             sell: server_response[key].sell
-          }
+          })
+          // Обратная пара, например USD_BTC
+          result.push({
+            buy: 1 / server_response[key].buy,
+            key: `${key.toUpperCase()}BTC`,
+            sell: 1 / server_response[key].sell,
+          })
         })
+        return result
       },
       type_name: 'BLOCKCHAIN_INFO',
     },
@@ -26,13 +35,20 @@ module.exports = {
       host: 'https://api.exmo.com',
       service_name: 'exmo.me',
       serializer: (server_response) => {
-        return Object.keys(server_response).map((key) => {
-          return {
+        const result = []
+        Object.keys(server_response).forEach((key) => {
+          result.push({
             buy: parseFloat(server_response[key].buy_price),
             key: key.replace('_', ''),
             sell: parseFloat(server_response[key].sell_price),
-          }
+          })
+          result.push({
+            buy: parseFloat(1 / server_response[key].buy_price),
+            key: key.split('_').reverse().join(''),
+            sell: parseFloat(1 / server_response[key].sell_price),
+          })
         })
+        return result
       },
       type_name: 'EXMO_ME',
     },
@@ -42,15 +58,46 @@ module.exports = {
       host: 'https://api.bitflip.cc',
       service_name: 'bitflip.cc',
       serializer: (server_response) => {
-        return server_response.filter((x) => x)[0].map((pair_hash) => {
-          return {
+        const result = []
+        server_response.filter((x) => x)[0].forEach((pair_hash) => {
+          result.push({
             buy: parseFloat(pair_hash.buy),
             key: pair_hash.pair.replace(':', ''),
             sell: parseFloat(pair_hash.sell),
-          }
+          })
+          result.push({
+            buy: parseFloat(1 / pair_hash.buy),
+            key: pair_hash.pair.split(':').reverse().join(''),
+            sell: parseFloat(1 / pair_hash.sell),
+          })
         })
+        return result
       },
       type_name: 'BITFLIP_CC',
+    },
+    {
+      // Биржа poloniex.com
+      api_path: '/public?command=returnTicker',
+      host: 'https://poloniex.com',
+      service_name: 'poloniex.com',
+      serializer: (server_response) => {
+        const result = []
+        Object.keys(server_response).forEach((key) => {
+          const reverse_key = key.split('_').reverse().join('')
+          result.push({
+            buy: parseFloat(1 / server_response[key].highestBid),
+            key: key.replace('_', ''),
+            sell: parseFloat(1 / server_response[key].lowestAsk),
+          })
+          result.push({
+            buy: parseFloat(server_response[key].highestBid),
+            key: reverse_key,
+            sell: parseFloat(server_response[key].lowestAsk),
+          })
+        })
+        return result
+      },
+      type_name: 'POLONIEX_COM'
     },
 //    {
 //      // Биржа bittrex.com - не поддерживает CORS
