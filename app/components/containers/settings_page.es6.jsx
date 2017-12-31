@@ -33,6 +33,12 @@ class SettingsPage extends React.Component {
     })
   }
 
+  handle_cell_precision_change = (value) => {
+    this.props.update_current({
+      cell_precision: value,
+    })
+  }
+
   handle_interval_change = (value) => {
     this.props.update_current({
       refresh_data_interval: value,
@@ -90,9 +96,36 @@ class SettingsPage extends React.Component {
           </div>
 
           <div className='markup__column-start-stretch markup__wrap-padding'>
-            <h3>Активные / доступные провайдеры данных</h3>
+            <h3>Интервал обновления: {(this.props.refresh_data_interval / 1000).toFixed(1)} секунд</h3>
+          </div>
+          <div className='markup__column-start-stretch'>
+            <Slider
+              max={60000}
+              min={5000}
+              onChange={this.handle_interval_change}
+              snaps
+              step={1000}
+              value={this.props.refresh_data_interval}
+            />
           </div>
 
+          <div className='markup__column-start-stretch markup__wrap-padding'>
+            <h3>Ограничение количества символов в столбцах: {parseInt(this.props.cell_precision)}</h3>
+          </div>
+          <div className='markup__column-start-stretch'>
+            <Slider
+              max={20}
+              min={5}
+              onChange={this.handle_cell_precision_change}
+              snaps
+              step={1}
+              value={this.props.cell_precision}
+            />
+          </div>
+
+          <div className='markup__column-start-stretch markup__wrap-padding'>
+            <h3>Активные / доступные провайдеры данных</h3>
+          </div>
           <div className='markup__column-start-stretch markup__wrap-padding'>
             <div className='data-table'>
               <MdlTable
@@ -110,7 +143,6 @@ class SettingsPage extends React.Component {
           <div className='markup__column-start-stretch markup__wrap-padding'>
             <h3>Активные / доступные инструменты</h3>
           </div>
-
           <div className='markup__column-start-stretch markup__wrap-padding'>
             <div className='data-table'>
               <MdlTable
@@ -124,18 +156,6 @@ class SettingsPage extends React.Component {
               />
             </div>
           </div>
-
-          <div className='markup__column-start-stretch markup__wrap-padding'>
-            <h3>Интервал обновления: {(this.props.refresh_data_interval / 1000).toFixed(2)} секунд</h3>
-          </div>
-
-          <div className='markup__column-start-stretch markup__wrap-padding'>
-            <Slider
-              max={60000}
-              min={500}
-              onChange={this.handle_interval_change}
-              value={this.props.refresh_data_interval} />
-          </div>
         </div>
       </div>
     )
@@ -145,6 +165,7 @@ class SettingsPage extends React.Component {
 SettingsPage.propTypes = {
   active_stock_exchange_names: PropTypes.arrayOf(PropTypes.string),
   active_instrument_names: PropTypes.arrayOf(PropTypes.string),
+  cell_precision: PropTypes.number,
   refresh_data_interval: PropTypes.number,
 }
 
@@ -160,6 +181,9 @@ const mapStateToProps = (state, ownProps) => {
   const local_stored_refresh_data_interval = restore_form_fields({
     form_name: 'refresh_data_interval',
   })
+  const local_stored_cell_precision = restore_form_fields({
+    form_name: 'cell_precision',
+  })
   return {
     active_stock_exchange_names: shared_props.active_stock_exchange_names ||
                                  local_stored_active_stock_exchange_names ||
@@ -168,6 +192,7 @@ const mapStateToProps = (state, ownProps) => {
                              local_stored_active_instrument_names ||
                              default_settings.active_instrument_names,
     exchange_rates: exchange_rates.rows || {},
+    cell_precision: shared_props.cell_precision || local_stored_cell_precision || 10,
     refresh_data_interval: shared_props.refresh_data_interval || local_stored_refresh_data_interval || 10000,
   }
 }

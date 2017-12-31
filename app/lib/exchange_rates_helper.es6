@@ -1,7 +1,7 @@
 import { api_settings } from '../../config/api_settings'
 
 module.exports = {
-  prepare_exchange_rates: ({ data, active_instrument_names, active_stock_exchange_names }) => {
+  prepare_exchange_rates: ({ data, active_instrument_names, active_stock_exchange_names, precision = 10 }) => {
     const stock_exchange_keys = Object.keys(data)
     let combined_by_instrument_data = {}
     stock_exchange_keys.forEach((stock_exchange_key) => {
@@ -15,8 +15,8 @@ module.exports = {
           if (active_instrument_names.includes(instrument_name)) {
             combined_by_instrument_data[instrument_name] = combined_by_instrument_data[instrument_name] || {}
             combined_by_instrument_data[instrument_name][stock_exchange_name] = {
-              buy: row.buy,
-              sell: row.sell,
+              buy: row.buy.toPrecision(precision),
+              sell: row.sell.toPrecision(precision),
             }
           }
         })
