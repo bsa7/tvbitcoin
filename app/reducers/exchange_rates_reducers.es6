@@ -19,6 +19,9 @@ module.exports = {
           stock_exchange_name,
           rows: current_exchange_rates,
         })
+        if (rows_history.length > 20) {
+          rows_history.pop()
+        }
       }
       result = {
         ...state,

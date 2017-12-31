@@ -13,6 +13,15 @@ import default_settings from '../../../config/default_settings'
 import { prepare_exchange_rates } from '../../lib/exchange_rates_helper'
 
 class MainPage extends React.Component {
+  static propTypes = {
+    active_instrument_names: PropTypes.arrayOf(PropTypes.string),
+    active_stock_exchange_names: PropTypes.arrayOf(PropTypes.string),
+    cell_precision: PropTypes.number,
+    exchange_rates: PropTypes.object,
+    last_request_time: PropTypes.string,
+    refresh_data_interval: PropTypes.number,
+  }
+
   static needs = [
     ExchangeRatesActions.get_exchange_rates,
   ]
@@ -61,7 +70,7 @@ class MainPage extends React.Component {
       <div className='markup__column-start-center'>
         <div className='m_markup__content-wrapper'>
           <div className='markup__column-start-stretch markup__wrap-padding'>
-            <h2>Курсы основных валют по отношению к BTC на {this.props.last_request_time}</h2>
+            <h2>Курсы выбранных валютных пар на {this.props.last_request_time}</h2>
           </div>
 
           <div className='markup__column-start-stretch markup__wrap-padding'>
@@ -70,6 +79,7 @@ class MainPage extends React.Component {
                 multiSelectable={false}
                 selectable={false}
                 tableData={prepare_exchange_rates({
+                  precision: this.props.cell_precision,
                   data: this.props.exchange_rates,
                   active_instrument_names: this.props.active_instrument_names,
                   active_stock_exchange_names: this.props.active_stock_exchange_names,
@@ -84,10 +94,6 @@ class MainPage extends React.Component {
   }
 }
 
-MainPage.propTypes = {
-  exchange_rates: PropTypes.object,
-}
-
 const mapStateToProps = (state, ownProps) => {
   const app = state.application || {}
   const active_stock_exchange_names = restore_form_fields({
@@ -99,11 +105,15 @@ const mapStateToProps = (state, ownProps) => {
   const refresh_data_interval = restore_form_fields({
     form_name: 'refresh_data_interval',
   }) || 10000
+  const cell_precision = restore_form_fields({
+    form_name: 'cell_precision',
+  }) || 10
   return {
+    active_instrument_names,
+    active_stock_exchange_names,
+    cell_precision,
     exchange_rates: (app.exchange_rates || {}).rows || {},
     last_request_time: (app.exchange_rates || {}).request_time,
-    active_stock_exchange_names,
-    active_instrument_names,
     refresh_data_interval,
   }
 }
